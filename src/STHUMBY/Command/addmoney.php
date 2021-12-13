@@ -20,6 +20,14 @@ class addmoney extends Command
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
         if ($sender->hasPermission('economy.addmoney') || $sender instanceof ConsoleCommandSender  || $sender->getName() === "STHUMBY"){
+            if (is_null($args[0])){
+                $sender->sendMessage("Invalid argument");
+                return;
+            }
+            if (is_null($args[1])){
+                $sender->sendMessage("Invalid argument");
+                return;
+            }
             $player = Server::getInstance()->getPlayerExact($args[0]);
             if (isset($player)){
                 EconomyManager::addMoney($player, $args[1]);

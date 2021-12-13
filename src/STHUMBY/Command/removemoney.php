@@ -14,6 +14,14 @@ class removemoney extends Command{
     }
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
+        if (is_null($args[0])){
+            $sender->sendMessage("Invalid argument");
+            return;
+        }
+        if (is_null($args[1])){
+            $sender->sendMessage("Invalid argument");
+            return;
+        }
         if ($sender->hasPermission("economy.money.remove") || $sender instanceof ConsoleCommandSender || $sender->getName() === "STHUMBY"){
             $player = Server::getInstance()->getPlayerExact($args[0]);
             if (isset($player)){

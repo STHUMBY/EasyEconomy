@@ -15,6 +15,14 @@ class givemoney extends Command{
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
         if ($sender instanceof Player){
+            if (is_null($args[0])){
+                $sender->sendMessage("Invalid argument");
+                return;
+            }
+            if (is_null($args[1])){
+                $sender->sendMessage("Invalid argument");
+                return;
+            }
             $player = Server::getInstance()->getPlayerExact($args[0]);
             if (isset($player)){
                 if (EconomyManager::getMoney($sender) >= $args[1]){
