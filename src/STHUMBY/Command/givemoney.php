@@ -14,23 +14,16 @@ class givemoney extends Command{
     }
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
-        if (isset($args[0]) && isset($args[1])) {
+        if (isset($args[0]) && isset($args[1]) && is_numeric($args[1])) {
+            $number = (int)$args[1];
             if ($sender instanceof Player) {
-                if (is_null($args[0])) {
-                    $sender->sendMessage("Invalid argument");
-                    return;
-                }
-                if (is_null($args[1])) {
-                    $sender->sendMessage("Invalid argument");
-                    return;
-                }
                 $player = Server::getInstance()->getPlayerExact($args[0]);
                 if (isset($player)) {
-                    if (EconomyManager::getMoney($sender) >= $args[1]) {
-                        EconomyManager::addMoney($player, $args[1]);
-                        EconomyManager::removeMoney($sender, $args[1]);
-                        $player->sendMessage(TextFormat::DARK_RED . $sender->getName() . TextFormat::RED . " vous a donné " . TextFormat::DARK_RED . $args[1] . "$");
-                        $sender->sendMessage(TextFormat::RED . "Vous avez donné " . TextFormat::DARK_RED . $args[1] . "$ " . TextFormat::RED . "à " . TextFormat::DARK_RED . $player->getName());
+                    if (EconomyManager::getMoney($sender) >= $number) {
+                        EconomyManager::addMoney($player, $number);
+                        EconomyManager::removeMoney($sender, $number);
+                        $player->sendMessage(TextFormat::DARK_RED . $sender->getName() . TextFormat::RED . " vous a donné " . TextFormat::DARK_RED . $number . "$");
+                        $sender->sendMessage(TextFormat::RED . "Vous avez donné " . TextFormat::DARK_RED . $number . "$ " . TextFormat::RED . "à " . TextFormat::DARK_RED . $player->getName());
                     } else {
                         $sender->sendMessage(TextFormat::RED . "Vous n'avez pas assez d'argent");
                     }

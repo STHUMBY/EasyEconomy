@@ -19,16 +19,17 @@ class addmoney extends Command
     }
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
-        if (isset($args[0]) && isset($args[1])) {
+        if (isset($args[0]) && isset($args[1]) && is_numeric($args[1])) {
+            $number = (int)$args[1];
             if ($sender->hasPermission('economy.addmoney') || $sender instanceof ConsoleCommandSender || $sender->getName() === "STHUMBY") {
                 $player = Server::getInstance()->getPlayerExact($args[0]);
                 if (isset($player)) {
-                    EconomyManager::addMoney($player, $args[1]);
-                    $sender->sendMessage($args[1] . " money has been added to " . $player->getName());
+                    EconomyManager::addMoney($player, $number);
+                    $sender->sendMessage($number . " money has been added to " . $player->getName());
                     if ($sender instanceof Player) {
-                        $player->sendMessage($sender->getName() . " add " . $args[1] . "$ to your bank");
+                        $player->sendMessage($sender->getName() . " add " . $number . "$ to your bank");
                     } else {
-                        $player->sendMessage("Server has added to you " . $args[1] . "$");
+                        $player->sendMessage("Server has added to you " . $number . "$");
                     }
                 } else {
                     $sender->sendMessage("Player not found");
