@@ -19,7 +19,7 @@ class addmoney extends Command
     }
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
-        if (isset($args[0]) && isset($args[1]) && is_int($args[1])) {
+        if (isset($args[0]) && isset($args[1])) {
             if ($sender->hasPermission('economy.addmoney') || $sender instanceof ConsoleCommandSender || $sender->getName() === "STHUMBY") {
                 $player = Server::getInstance()->getPlayerExact($args[0]);
                 if (isset($player)) {

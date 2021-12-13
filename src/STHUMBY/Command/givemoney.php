@@ -14,7 +14,7 @@ class givemoney extends Command{
     }
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
-        if (isset($args[0]) && isset($args[1]) && is_int($args[1])) {
+        if (isset($args[0]) && isset($args[1])) {
             if ($sender instanceof Player) {
                 if (is_null($args[0])) {
                     $sender->sendMessage("Invalid argument");
