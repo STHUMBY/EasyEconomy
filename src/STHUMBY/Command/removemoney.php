@@ -17,16 +17,20 @@ class removemoney extends Command{
         if (isset($args[0])&& isset($args[1]) && is_numeric($args[1])) {
             $number = (int)$args[1];
             if ($sender->hasPermission("economy.money.remove") || $sender instanceof ConsoleCommandSender || $sender->getName() === "STHUMBY") {
-                $player = Server::getInstance()->getPlayerExact($args[0]);
-                if (isset($player)) {
-                    EconomyManager::removeMoney($player, $number);
-                    $sender->sendMessage($number . " money has been removed from " . $player->getName());
-                } else {
-                    $sender->sendMessage("Can't found the player : " . $args[0]);
+                if ($number > EconomyManager::getMoney($args[0])) {
+                    $player = Server::getInstance()->getPlayerExact($args[0]);
+                    if (isset($player)) {
+                        EconomyManager::removeMoney($player, $number);
+                        $sender->sendMessage("§2".$number . " §amoney has been removed from §2" . $player->getName());
+                    } else {
+                        $sender->sendMessage("§4Can't found the player : " . $args[0]);
+                    }
+                }else{
+                    $sender->sendMessage("§4Vous ne pouvez pas rendre l'argent d'un joueur négative");
                 }
             }
         }else{
-            $sender->sendMessage("Arguments invalid");
+            $sender->sendMessage("§4Arguments invalid");
         }
     }
 }

@@ -20,16 +20,16 @@ class money extends Command{
             $player = Server::getInstance()->getPlayerExact($args[0]);
             if (isset($player)){
                 if (EasyEconomy::$DATABASE->exists($player->getName())) {
-                    $sender->sendMessage(TextFormat::DARK_RED . $player->getName() . TextFormat::RED . " : " . EconomyManager::getMoney($player) . "$");
+                    $sender->sendMessage("§2" . $player->getName()  . " §a: " . EconomyManager::getMoney($player) . "§2$");
                 }else{
-                    $sender->sendMessage("Le joueur n'existe pas");
+                    $sender->sendMessage("§4Le joueur n'existe pas");
                 }
             }else{
-                $sender->sendMessage($args[0] . " n'a pas été trouvé");
+                $sender->sendMessage("§c".$args[0] . " §4n'a pas été trouvé");
             }
         }else{
             if ($sender instanceof Player){
-                $sender->sendMessage(TextFormat::RED . "Vous avez " . TextFormat::DARK_RED . EconomyManager::getMoney($sender) . "$");
+                $sender->sendMessage(TextFormat::RED . "§aVous avez §2" . EconomyManager::getMoney($sender) . "§a$");
             }else{
                 $sender->sendMessage("Vous n'avez pas d'argent car vous êtes une console");
             }
